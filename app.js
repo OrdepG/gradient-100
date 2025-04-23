@@ -46,3 +46,30 @@ for (let i = 0; i < cardAmmount; i++) {
     </div>
     `;
 }
+
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.classList.contains("type")){
+        bool = !bool;
+        const gradient = e.target.parentElement.parentElement.children[1].firstElementChild;
+        const id = parseInt(
+            e.target.parentElement.parentElement.children[0].firstElementChild.innerText.substr(2)) - 1;
+        if (bool === true) {
+            gradient.style.background = `linear-gradient(45deg, ${color1Arr[id]},${color2Arr[id]})`;
+            e.target.innerText = "Linear";
+        } else {
+            gradient.style.background = ` radial-gradient(circle, ${color1Arr[id]},${color2Arr[id]})`;
+            e.target.innerText = "Radial";
+        }
+    }
+});
+
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.classList.contains("copy")){
+        const gradient = e.target.parentElement.parentElement.children[1].firstElementChild.style.background;
+        navigator.clipboard.writeText("background: " + gradient + ';');
+        e.target.innerText = "Copied!";
+        setTimeout(() => {
+            e.target.innerText = "Copy CSS";
+        },2000);
+    }
+});
