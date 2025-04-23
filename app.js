@@ -12,9 +12,32 @@ function rndColors() {
     const y = 6 -x.length;
     const z = "000000";
     const z1 = z.substring(0, y);
-    const random = "#" + z1 + x;
-    return random;
+    return "#" + z1 + x;
+    
 }
+function rndRGBA(opacity = 0.5) {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgba( ${r}, ${g}, ${b}, ${opacity})`;
+}
+const heroSection = document.querySelector(".hero::before");
+
+const color1 = rndRGBA(0.5);
+
+const style = document.createElement("style");
+document.head.appendChild(style);
+
+style.sheet.insertRule(`
+    .hero::before{
+        background:radial-gradient(circle at top center, ${color1}, transparent 53%);
+    }
+`,0);
+
+function createCards() {
+    container.innerHTML = "";
+    color1Arr = [];
+    color2Arr = [];
 
 for (let i = 0; i < cardAmmount; i++) {
     const color1 =rndColors();
@@ -45,7 +68,11 @@ for (let i = 0; i < cardAmmount; i++) {
     </div>
     </div>
     `;
+}  
 }
+createCards();
+
+document.getElementById("generate").addEventListener("click", createCards);
 
 document.addEventListener("click", (e) => {
     if (e.target && e.target.classList.contains("type")){
@@ -73,3 +100,4 @@ document.addEventListener("click", (e) => {
         },2000);
     }
 });
+
